@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>TastTestEarn</title>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    .app {
+      max-width: 600px;
+      margin: auto;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      padding: 25px 10px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .header p {
+      margin-top: 8px;
+      color: #666;
+    }
+
+    .balance {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .balance-title {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .balance-amount {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .menu button {
+      border: none;
+      border-radius: 15px;
+      padding: 20px 10px;
+      background: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+
+    .menu button:active {
+      transform: scale(0.98);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #888;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <div class="header">
+      <h1>🚀 TastTestEarn</h1>
+      <p>Complete tasks. Earn rewards.</p>
+    </div>
+
+    <div class="balance">
+      <div class="balance-title">Your Balance</div>
+      <div class="balance-amount">0 Credits</div>
+    </div>
+
+    <div class="menu">
+
+      <button onclick="showMessage('Tasks coming soon!')">
+        📋<br>
+        Tasks
+      </button>
+
+      <button onclick="showMessage('Wallet coming soon!')">
+        💰<br>
+        Wallet
+      </button>
+
+      <button onclick="showMessage('Advertiser section coming soon!')">
+        📢<br>
+        Advertise
+      </button>
+
+      <button onclick="showMessage('Profile coming soon!')">
+        👤<br>
+        Profile
+      </button>
+
+    </div>
+
+    <div class="footer">
+      TastTestEarn © 2026
+    </div>
+
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+
+    tg.ready();
+    tg.expand();
+
+    function showMessage(message) {
+      if (tg.showAlert) {
+        tg.showAlert(message);
+      } else {
+        alert(message);
+      }
+    }
+  </script>
+
+</body>
+</html>
