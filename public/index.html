@@ -6,7 +6,7 @@
 
   <title>TastTestEarn</title>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script> 
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
     * {
@@ -102,7 +102,8 @@
     }
 
     .task-card,
-    .profile-card {
+    .profile-card,
+    .wallet-card {
       background: white;
       border-radius: 16px;
       padding: 18px;
@@ -126,7 +127,8 @@
       margin: 12px 0;
     }
 
-    .start-button {
+    .start-button,
+    .withdraw-button {
       width: 100%;
       border: none;
       border-radius: 12px;
@@ -135,6 +137,10 @@
       color: white;
       font-size: 15px;
       cursor: pointer;
+    }
+
+    .withdraw-button {
+      margin-top: 15px;
     }
 
     .profile-avatar {
@@ -164,23 +170,55 @@
       margin-bottom: 20px;
     }
 
-    .profile-row {
+    .profile-row,
+    .wallet-row {
       display: flex;
       justify-content: space-between;
       padding: 14px 0;
       border-bottom: 1px solid #eee;
     }
 
-    .profile-row:last-child {
+    .profile-row:last-child,
+    .wallet-row:last-child {
       border-bottom: none;
     }
 
-    .profile-label {
+    .profile-label,
+    .wallet-label {
       color: #777;
     }
 
-    .profile-value {
+    .profile-value,
+    .wallet-value {
       font-weight: bold;
+    }
+
+    .wallet-balance {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .wallet-balance-title {
+      color: #777;
+      font-size: 14px;
+    }
+
+    .wallet-balance-amount {
+      font-size: 38px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .history-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .empty-history {
+      text-align: center;
+      color: #888;
+      padding: 20px 0;
     }
 
     .footer {
@@ -216,7 +254,7 @@
         Tasks
       </button>
 
-      <button onclick="showMessage('Wallet coming soon!')">
+      <button onclick="openWallet()">
         💰<br>
         Wallet
       </button>
@@ -309,6 +347,72 @@
   </div>
 
 
+  <!-- WALLET -->
+  <div id="walletPage" class="page">
+
+    <button class="back-button" onclick="goHome()">
+      ← Back
+    </button>
+
+    <div class="header">
+      <h1>💰 My Wallet</h1>
+      <p>Manage your TastTestEarn credits.</p>
+    </div>
+
+    <div class="wallet-card">
+
+      <div class="wallet-balance">
+
+        <div class="wallet-balance-title">
+          Available Balance
+        </div>
+
+        <div class="wallet-balance-amount">
+          0
+        </div>
+
+        <div class="wallet-balance-title">
+          Credits
+        </div>
+
+      </div>
+
+      <div class="wallet-row">
+        <span class="wallet-label">📈 Total earned</span>
+        <span class="wallet-value">0 Credits</span>
+      </div>
+
+      <div class="wallet-row">
+        <span class="wallet-label">📋 Tasks completed</span>
+        <span class="wallet-value">0</span>
+      </div>
+
+      <div class="wallet-row">
+        <span class="wallet-label">💸 Total withdrawn</span>
+        <span class="wallet-value">0 Credits</span>
+      </div>
+
+      <button class="withdraw-button" onclick="withdraw()">
+        💸 Withdraw
+      </button>
+
+    </div>
+
+    <div class="wallet-card">
+
+      <div class="history-title">
+        📜 Transaction History
+      </div>
+
+      <div class="empty-history">
+        No transactions yet.
+      </div>
+
+    </div>
+
+  </div>
+
+
   <!-- PROFILE -->
   <div id="profilePage" class="page">
 
@@ -365,19 +469,38 @@
   tg.expand();
 
 
-  function openTasks() {
+  function hideAllPages() {
 
     document.getElementById("homePage").classList.remove("active");
+    document.getElementById("tasksPage").classList.remove("active");
+    document.getElementById("walletPage").classList.remove("active");
     document.getElementById("profilePage").classList.remove("active");
+
+  }
+
+
+  function openTasks() {
+
+    hideAllPages();
+
     document.getElementById("tasksPage").classList.add("active");
+
+  }
+
+
+  function openWallet() {
+
+    hideAllPages();
+
+    document.getElementById("walletPage").classList.add("active");
 
   }
 
 
   function openProfile() {
 
-    document.getElementById("homePage").classList.remove("active");
-    document.getElementById("tasksPage").classList.remove("active");
+    hideAllPages();
+
     document.getElementById("profilePage").classList.add("active");
 
     loadTelegramProfile();
@@ -387,8 +510,8 @@
 
   function goHome() {
 
-    document.getElementById("tasksPage").classList.remove("active");
-    document.getElementById("profilePage").classList.remove("active");
+    hideAllPages();
+
     document.getElementById("homePage").classList.add("active");
 
   }
@@ -411,11 +534,15 @@
     document.getElementById("profileName").textContent = name;
 
     if (user.username) {
+
       document.getElementById("profileUsername").textContent =
         "@" + user.username;
+
     } else {
+
       document.getElementById("profileUsername").textContent =
         "No username";
+
     }
 
     const firstLetter =
@@ -439,6 +566,25 @@
     } else {
 
       alert(taskName + " will be available soon.");
+
+    }
+
+  }
+
+
+  function withdraw() {
+
+    if (tg.showAlert) {
+
+      tg.showAlert(
+        "Withdrawals will be available after the wallet and payment system are connected."
+      );
+
+    } else {
+
+      alert(
+        "Withdrawals will be available soon."
+      );
 
     }
 
