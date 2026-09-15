@@ -29,7 +29,7 @@
 
     .header {
       text-align: center;
-      padding: 25px 10px;
+      padding: 20px 10px;
     }
 
     .header h1 {
@@ -82,6 +82,60 @@
       transform: scale(0.98);
     }
 
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .back-button {
+      border: none;
+      background: white;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    .task-card {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+
+    .task-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    .task-card p {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .reward {
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    .start-button {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 13px;
+      background: #229ed9;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
     .footer {
       text-align: center;
       margin-top: 30px;
@@ -93,7 +147,10 @@
 
 <body>
 
-  <div class="app">
+<div class="app">
+
+  <!-- HOME PAGE -->
+  <div id="homePage" class="page active">
 
     <div class="header">
       <h1>🚀 TastTestEarn</h1>
@@ -107,7 +164,7 @@
 
     <div class="menu">
 
-      <button onclick="showMessage('Tasks coming soon!')">
+      <button onclick="openTasks()">
         📋<br>
         Tasks
       </button>
@@ -135,20 +192,141 @@
 
   </div>
 
-  <script>
-    const tg = window.Telegram.WebApp;
 
-    tg.ready();
-    tg.expand();
+  <!-- TASKS PAGE -->
+  <div id="tasksPage" class="page">
 
-    function showMessage(message) {
-      if (tg.showAlert) {
-        tg.showAlert(message);
-      } else {
-        alert(message);
-      }
+    <button class="back-button" onclick="goHome()">
+      ← Back
+    </button>
+
+    <div class="header">
+      <h1>📋 Available Tasks</h1>
+      <p>Complete tasks and earn credits.</p>
+    </div>
+
+
+    <div class="task-card">
+
+      <h3>🎥 Watch a Video</h3>
+
+      <p>
+        Watch the required video and complete the verification step.
+      </p>
+
+      <div class="reward">
+        💰 Reward: 10 Credits
+      </div>
+
+      <button class="start-button" onclick="startTask('Watch a Video')">
+        Start Task
+      </button>
+
+    </div>
+
+
+    <div class="task-card">
+
+      <h3>▶️ Watch & Verify</h3>
+
+      <p>
+        Watch the required content and enter the verification code.
+      </p>
+
+      <div class="reward">
+        💰 Reward: 20 Credits
+      </div>
+
+      <button class="start-button" onclick="startTask('Watch & Verify')">
+        Start Task
+      </button>
+
+    </div>
+
+
+    <div class="task-card">
+
+      <h3>📝 Test Task</h3>
+
+      <p>
+        Complete a simple test task to earn credits.
+      </p>
+
+      <div class="reward">
+        💰 Reward: 5 Credits
+      </div>
+
+      <button class="start-button" onclick="startTask('Test Task')">
+        Start Task
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const tg = window.Telegram.WebApp;
+
+  tg.ready();
+  tg.expand();
+
+
+  function openTasks() {
+
+    document.getElementById("homePage").classList.remove("active");
+
+    document.getElementById("tasksPage").classList.add("active");
+
+  }
+
+
+  function goHome() {
+
+    document.getElementById("tasksPage").classList.remove("active");
+
+    document.getElementById("homePage").classList.add("active");
+
+  }
+
+
+  function startTask(taskName) {
+
+    if (tg.showAlert) {
+
+      tg.showAlert(
+        taskName + " will be available soon. We are building the task system."
+      );
+
+    } else {
+
+      alert(
+        taskName + " will be available soon."
+      );
+
     }
-  </script>
+
+  }
+
+
+  function showMessage(message) {
+
+    if (tg.showAlert) {
+
+      tg.showAlert(message);
+
+    } else {
+
+      alert(message);
+
+    }
+
+  }
+
+</script>
 
 </body>
 </html>
