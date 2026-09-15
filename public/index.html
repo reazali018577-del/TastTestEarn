@@ -101,7 +101,8 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.07);
     }
 
-    .task-card {
+    .task-card,
+    .profile-card {
       background: white;
       border-radius: 16px;
       padding: 18px;
@@ -136,6 +137,52 @@
       cursor: pointer;
     }
 
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #229ed9;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: bold;
+      margin: 0 auto 15px;
+    }
+
+    .profile-name {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .profile-username {
+      text-align: center;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .profile-row:last-child {
+      border-bottom: none;
+    }
+
+    .profile-label {
+      color: #777;
+    }
+
+    .profile-value {
+      font-weight: bold;
+    }
+
     .footer {
       text-align: center;
       margin-top: 30px;
@@ -149,7 +196,7 @@
 
 <div class="app">
 
-  <!-- HOME PAGE -->
+  <!-- HOME -->
   <div id="homePage" class="page active">
 
     <div class="header">
@@ -179,7 +226,7 @@
         Advertise
       </button>
 
-      <button onclick="showMessage('Profile coming soon!')">
+      <button onclick="openProfile()">
         👤<br>
         Profile
       </button>
@@ -193,7 +240,7 @@
   </div>
 
 
-  <!-- TASKS PAGE -->
+  <!-- TASKS -->
   <div id="tasksPage" class="page">
 
     <button class="back-button" onclick="goHome()">
@@ -204,7 +251,6 @@
       <h1>📋 Available Tasks</h1>
       <p>Complete tasks and earn credits.</p>
     </div>
-
 
     <div class="task-card">
 
@@ -224,7 +270,6 @@
 
     </div>
 
-
     <div class="task-card">
 
       <h3>▶️ Watch & Verify</h3>
@@ -242,7 +287,6 @@
       </button>
 
     </div>
-
 
     <div class="task-card">
 
@@ -264,6 +308,52 @@
 
   </div>
 
+
+  <!-- PROFILE -->
+  <div id="profilePage" class="page">
+
+    <button class="back-button" onclick="goHome()">
+      ← Back
+    </button>
+
+    <div class="header">
+      <h1>👤 My Profile</h1>
+      <p>Your TastTestEarn account</p>
+    </div>
+
+    <div class="profile-card">
+
+      <div class="profile-avatar" id="profileAvatar">
+        ?
+      </div>
+
+      <div class="profile-name" id="profileName">
+        Telegram User
+      </div>
+
+      <div class="profile-username" id="profileUsername">
+        @username
+      </div>
+
+      <div class="profile-row">
+        <span class="profile-label">💰 Balance</span>
+        <span class="profile-value">0 Credits</span>
+      </div>
+
+      <div class="profile-row">
+        <span class="profile-label">📋 Tasks completed</span>
+        <span class="profile-value">0</span>
+      </div>
+
+      <div class="profile-row">
+        <span class="profile-label">🏆 Total earned</span>
+        <span class="profile-value">0 Credits</span>
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
 
@@ -278,8 +368,19 @@
   function openTasks() {
 
     document.getElementById("homePage").classList.remove("active");
-
+    document.getElementById("profilePage").classList.remove("active");
     document.getElementById("tasksPage").classList.add("active");
+
+  }
+
+
+  function openProfile() {
+
+    document.getElementById("homePage").classList.remove("active");
+    document.getElementById("tasksPage").classList.remove("active");
+    document.getElementById("profilePage").classList.add("active");
+
+    loadTelegramProfile();
 
   }
 
@@ -287,8 +388,41 @@
   function goHome() {
 
     document.getElementById("tasksPage").classList.remove("active");
-
+    document.getElementById("profilePage").classList.remove("active");
     document.getElementById("homePage").classList.add("active");
+
+  }
+
+
+  function loadTelegramProfile() {
+
+    const user = tg.initDataUnsafe.user;
+
+    if (!user) {
+      return;
+    }
+
+    let name = user.first_name || "Telegram User";
+
+    if (user.last_name) {
+      name += " " + user.last_name;
+    }
+
+    document.getElementById("profileName").textContent = name;
+
+    if (user.username) {
+      document.getElementById("profileUsername").textContent =
+        "@" + user.username;
+    } else {
+      document.getElementById("profileUsername").textContent =
+        "No username";
+    }
+
+    const firstLetter =
+      (user.first_name || "U").charAt(0).toUpperCase();
+
+    document.getElementById("profileAvatar").textContent =
+      firstLetter;
 
   }
 
@@ -298,14 +432,13 @@
     if (tg.showAlert) {
 
       tg.showAlert(
-        taskName + " will be available soon. We are building the task system."
+        taskName +
+        " will be available soon. We are building the task system."
       );
 
     } else {
 
-      alert(
-        taskName + " will be available soon."
-      );
+      alert(taskName + " will be available soon.");
 
     }
 
