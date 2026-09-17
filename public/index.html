@@ -103,7 +103,8 @@
 
     .task-card,
     .profile-card,
-    .wallet-card {
+    .wallet-card,
+    .advertiser-card {
       background: white;
       border-radius: 16px;
       padding: 18px;
@@ -128,7 +129,8 @@
     }
 
     .start-button,
-    .withdraw-button {
+    .withdraw-button,
+    .primary-button {
       width: 100%;
       border: none;
       border-radius: 12px;
@@ -221,11 +223,149 @@
       padding: 20px 0;
     }
 
+    /* ADVERTISER */
+
+    .credit-box {
+      background: #229ed9;
+      color: white;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .credit-box-title {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .credit-box-amount {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .advertiser-menu {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .advertiser-menu button {
+      border: none;
+      border-radius: 14px;
+      padding: 18px 10px;
+      background: white;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+    }
+
+    .form-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+      background: white;
+    }
+
+    .requirements {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .requirement-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f1f1;
+      font-size: 14px;
+    }
+
+    .requirement-item:last-child {
+      border-bottom: none;
+    }
+
+    .requirement-item input {
+      width: 18px;
+      height: 18px;
+    }
+
+    .budget-box {
+      background: #f4f6f8;
+      border-radius: 12px;
+      padding: 15px;
+      margin: 15px 0;
+    }
+
+    .budget-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .budget-row:last-child {
+      margin-bottom: 0;
+      font-weight: bold;
+      font-size: 18px;
+      padding-top: 8px;
+      border-top: 1px solid #ddd;
+    }
+
+    .info-box {
+      background: #fff8e1;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 13px;
+      color: #665500;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .campaign-empty {
+      text-align: center;
+      color: #888;
+      padding: 25px 10px;
+    }
+
     .footer {
       text-align: center;
       margin-top: 30px;
       color: #888;
       font-size: 13px;
+    }
+
+    @media (max-width: 450px) {
+      .app {
+        padding: 15px;
+      }
+
+      .menu,
+      .advertiser-menu {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
@@ -234,7 +374,8 @@
 
 <div class="app">
 
-  <!-- HOME -->
+  <!-- ==================== HOME ==================== -->
+
   <div id="homePage" class="page active">
 
     <div class="header">
@@ -259,7 +400,7 @@
         Wallet
       </button>
 
-      <button onclick="showMessage('Advertiser section coming soon!')">
+      <button onclick="openAdvertise()">
         📢<br>
         Advertise
       </button>
@@ -278,12 +419,11 @@
   </div>
 
 
-  <!-- TASKS -->
+  <!-- ==================== TASKS ==================== -->
+
   <div id="tasksPage" class="page">
 
-    <button class="back-button" onclick="goHome()">
-      ← Back
-    </button>
+    <button class="back-button" onclick="goHome()">← Back</button>
 
     <div class="header">
       <h1>📋 Available Tasks</h1>
@@ -302,11 +442,14 @@
         💰 Reward: 10 Credits
       </div>
 
-      <button class="start-button" onclick="startTask('Watch a Video')">
+      <button
+        class="start-button"
+        onclick="startTask('Watch a Video')">
         Start Task
       </button>
 
     </div>
+
 
     <div class="task-card">
 
@@ -320,11 +463,14 @@
         💰 Reward: 20 Credits
       </div>
 
-      <button class="start-button" onclick="startTask('Watch & Verify')">
+      <button
+        class="start-button"
+        onclick="startTask('Watch & Verify')">
         Start Task
       </button>
 
     </div>
+
 
     <div class="task-card">
 
@@ -338,7 +484,9 @@
         💰 Reward: 5 Credits
       </div>
 
-      <button class="start-button" onclick="startTask('Test Task')">
+      <button
+        class="start-button"
+        onclick="startTask('Test Task')">
         Start Task
       </button>
 
@@ -347,12 +495,11 @@
   </div>
 
 
-  <!-- WALLET -->
+  <!-- ==================== WALLET ==================== -->
+
   <div id="walletPage" class="page">
 
-    <button class="back-button" onclick="goHome()">
-      ← Back
-    </button>
+    <button class="back-button" onclick="goHome()">← Back</button>
 
     <div class="header">
       <h1>💰 My Wallet</h1>
@@ -377,26 +524,54 @@
 
       </div>
 
-      <div class="wallet-row">
-        <span class="wallet-label">📈 Total earned</span>
-        <span class="wallet-value">0 Credits</span>
-      </div>
 
       <div class="wallet-row">
-        <span class="wallet-label">📋 Tasks completed</span>
-        <span class="wallet-value">0</span>
+
+        <span class="wallet-label">
+          📈 Total earned
+        </span>
+
+        <span class="wallet-value">
+          0 Credits
+        </span>
+
       </div>
+
 
       <div class="wallet-row">
-        <span class="wallet-label">💸 Total withdrawn</span>
-        <span class="wallet-value">0 Credits</span>
+
+        <span class="wallet-label">
+          📋 Tasks completed
+        </span>
+
+        <span class="wallet-value">
+          0
+        </span>
+
       </div>
 
-      <button class="withdraw-button" onclick="withdraw()">
+
+      <div class="wallet-row">
+
+        <span class="wallet-label">
+          💸 Total withdrawn
+        </span>
+
+        <span class="wallet-value">
+          0 Credits
+        </span>
+
+      </div>
+
+
+      <button
+        class="withdraw-button"
+        onclick="withdraw()">
         💸 Withdraw
       </button>
 
     </div>
+
 
     <div class="wallet-card">
 
@@ -413,12 +588,11 @@
   </div>
 
 
-  <!-- PROFILE -->
+  <!-- ==================== PROFILE ==================== -->
+
   <div id="profilePage" class="page">
 
-    <button class="back-button" onclick="goHome()">
-      ← Back
-    </button>
+    <button class="back-button" onclick="goHome()">← Back</button>
 
     <div class="header">
       <h1>👤 My Profile</h1>
@@ -427,31 +601,450 @@
 
     <div class="profile-card">
 
-      <div class="profile-avatar" id="profileAvatar">
+      <div
+        class="profile-avatar"
+        id="profileAvatar">
         ?
       </div>
 
-      <div class="profile-name" id="profileName">
+      <div
+        class="profile-name"
+        id="profileName">
         Telegram User
       </div>
 
-      <div class="profile-username" id="profileUsername">
+      <div
+        class="profile-username"
+        id="profileUsername">
         @username
       </div>
 
-      <div class="profile-row">
-        <span class="profile-label">💰 Balance</span>
-        <span class="profile-value">0 Credits</span>
-      </div>
 
       <div class="profile-row">
-        <span class="profile-label">📋 Tasks completed</span>
-        <span class="profile-value">0</span>
+
+        <span class="profile-label">
+          💰 Balance
+        </span>
+
+        <span class="profile-value">
+          0 Credits
+        </span>
+
       </div>
 
+
       <div class="profile-row">
-        <span class="profile-label">🏆 Total earned</span>
-        <span class="profile-value">0 Credits</span>
+
+        <span class="profile-label">
+          📋 Tasks completed
+        </span>
+
+        <span class="profile-value">
+          0
+        </span>
+
+      </div>
+
+
+      <div class="profile-row">
+
+        <span class="profile-label">
+          🏆 Total earned
+        </span>
+
+        <span class="profile-value">
+          0 Credits
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==================== ADVERTISER DASHBOARD ==================== -->
+
+  <div id="advertisePage" class="page">
+
+    <button
+      class="back-button"
+      onclick="goHome()">
+      ← Back
+    </button>
+
+
+    <div class="header">
+
+      <h1>📢 Advertiser Dashboard</h1>
+
+      <p>
+        Create campaigns and reach task workers.
+      </p>
+
+    </div>
+
+
+    <!-- ADVERTISING CREDITS -->
+
+    <div class="credit-box">
+
+      <div class="credit-box-title">
+        Advertising Credits
+      </div>
+
+      <div class="credit-box-amount">
+        0 Credits
+      </div>
+
+    </div>
+
+
+    <!-- ADVERTISER MENU -->
+
+    <div class="advertiser-menu">
+
+      <button onclick="showCreateCampaign()">
+        ➕<br>
+        Create Campaign
+      </button>
+
+      <button onclick="showCampaigns()">
+        📋<br>
+        My Campaigns
+      </button>
+
+    </div>
+
+
+    <!-- CREATE CAMPAIGN -->
+
+    <div
+      id="createCampaignSection"
+      class="advertiser-card">
+
+      <div class="form-title">
+        ➕ Create Campaign
+      </div>
+
+
+      <div class="info-box">
+
+        This is the first advertiser prototype.
+        Campaigns are not saved to the database yet.
+        The backend and payment system will be connected later.
+
+      </div>
+
+
+      <!-- CAMPAIGN NAME -->
+
+      <div class="form-group">
+
+        <label for="campaignName">
+          Campaign Name
+        </label>
+
+        <input
+          type="text"
+          id="campaignName"
+          placeholder="Example: Watch my new video">
+
+      </div>
+
+
+      <!-- VIDEO URL -->
+
+      <div class="form-group">
+
+        <label for="videoUrl">
+          Video / Content URL
+        </label>
+
+        <input
+          type="url"
+          id="videoUrl"
+          placeholder="https://...">
+
+      </div>
+
+
+      <!-- PLATFORM -->
+
+      <div class="form-group">
+
+        <label for="platform">
+          Platform
+        </label>
+
+        <select id="platform">
+
+          <option value="">
+            Select platform
+          </option>
+
+          <option value="youtube">
+            YouTube
+          </option>
+
+          <option value="facebook">
+            Facebook
+          </option>
+
+          <option value="other">
+            Other Supported Platform
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- REQUIREMENTS -->
+
+      <div class="form-group">
+
+        <label>
+          Task Requirements
+        </label>
+
+        <div class="requirements">
+
+
+          <label class="requirement-item">
+
+            <input
+              type="checkbox"
+              id="reqWatch"
+              value="Watch">
+
+            🎥 Watch video
+
+          </label>
+
+
+          <label class="requirement-item">
+
+            <input
+              type="checkbox"
+              id="reqWatchTime"
+              value="Watch Time">
+
+            ⏱️ Watch required time
+
+          </label>
+
+
+          <label class="requirement-item">
+
+            <input
+              type="checkbox"
+              id="reqCode"
+              value="Verification">
+
+            🔐 Enter verification code
+
+          </label>
+
+
+          <label class="requirement-item">
+
+            <input
+              type="checkbox"
+              id="reqLike"
+              value="Like">
+
+            👍 Like, where permitted
+
+          </label>
+
+
+          <label class="requirement-item">
+
+            <input
+              type="checkbox"
+              id="reqComment"
+              value="Comment">
+
+            💬 Comment, where permitted
+
+          </label>
+
+
+          <label class="requirement-item">
+
+            <input
+              type="checkbox"
+              id="reqFollow"
+              value="Follow">
+
+            👤 Follow / Subscribe, where permitted
+
+          </label>
+
+
+          <label class="requirement-item">
+
+            <input
+              type="checkbox"
+              id="reqShare"
+              value="Share">
+
+            🔄 Share, where permitted
+
+          </label>
+
+
+        </div>
+
+      </div>
+
+
+      <!-- WATCH TIME -->
+
+      <div class="form-group">
+
+        <label for="watchTime">
+          Required Watch Time (seconds)
+        </label>
+
+        <input
+          type="number"
+          id="watchTime"
+          min="0"
+          placeholder="Example: 30">
+
+      </div>
+
+
+      <!-- VERIFICATION CODE -->
+
+      <div class="form-group">
+
+        <label for="verificationCode">
+          Verification Code
+        </label>
+
+        <input
+          type="text"
+          id="verificationCode"
+          maxlength="20"
+          placeholder="Example: TTE123">
+
+      </div>
+
+
+      <!-- REWARD -->
+
+      <div class="form-group">
+
+        <label for="rewardPerWorker">
+          Reward Per Worker (Credits)
+        </label>
+
+        <input
+          type="number"
+          id="rewardPerWorker"
+          min="1"
+          value="10"
+          oninput="calculateBudget()">
+
+      </div>
+
+
+      <!-- WORKERS -->
+
+      <div class="form-group">
+
+        <label for="workerCount">
+          Number of Workers
+        </label>
+
+        <input
+          type="number"
+          id="workerCount"
+          min="1"
+          value="10"
+          oninput="calculateBudget()">
+
+      </div>
+
+
+      <!-- BUDGET -->
+
+      <div class="budget-box">
+
+        <div class="budget-row">
+
+          <span>
+            Reward per worker
+          </span>
+
+          <span id="budgetReward">
+            10
+          </span>
+
+        </div>
+
+
+        <div class="budget-row">
+
+          <span>
+            Number of workers
+          </span>
+
+          <span id="budgetWorkers">
+            10
+          </span>
+
+        </div>
+
+
+        <div class="budget-row">
+
+          <span>
+            Total Campaign Budget
+          </span>
+
+          <span id="totalBudget">
+            100 Credits
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="primary-button"
+        onclick="createCampaign()">
+
+        🚀 Create Campaign
+
+      </button>
+
+    </div>
+
+
+    <!-- MY CAMPAIGNS -->
+
+    <div
+      id="campaignsSection"
+      class="advertiser-card"
+      style="display:none;">
+
+      <div class="form-title">
+        📋 My Campaigns
+      </div>
+
+      <div class="campaign-empty">
+
+        You don't have any campaigns yet.
+
+        <br><br>
+
+        Create your first campaign to see it here.
+
       </div>
 
     </div>
@@ -463,18 +1056,42 @@
 
 <script>
 
+  /* ==========================================
+     TELEGRAM
+     ========================================== */
+
   const tg = window.Telegram.WebApp;
 
   tg.ready();
+
   tg.expand();
 
 
+  /* ==========================================
+     PAGE CONTROL
+     ========================================== */
+
   function hideAllPages() {
 
-    document.getElementById("homePage").classList.remove("active");
-    document.getElementById("tasksPage").classList.remove("active");
-    document.getElementById("walletPage").classList.remove("active");
-    document.getElementById("profilePage").classList.remove("active");
+    document
+      .getElementById("homePage")
+      .classList.remove("active");
+
+    document
+      .getElementById("tasksPage")
+      .classList.remove("active");
+
+    document
+      .getElementById("walletPage")
+      .classList.remove("active");
+
+    document
+      .getElementById("profilePage")
+      .classList.remove("active");
+
+    document
+      .getElementById("advertisePage")
+      .classList.remove("active");
 
   }
 
@@ -483,7 +1100,9 @@
 
     hideAllPages();
 
-    document.getElementById("tasksPage").classList.add("active");
+    document
+      .getElementById("tasksPage")
+      .classList.add("active");
 
   }
 
@@ -492,7 +1111,9 @@
 
     hideAllPages();
 
-    document.getElementById("walletPage").classList.add("active");
+    document
+      .getElementById("walletPage")
+      .classList.add("active");
 
   }
 
@@ -501,9 +1122,24 @@
 
     hideAllPages();
 
-    document.getElementById("profilePage").classList.add("active");
+    document
+      .getElementById("profilePage")
+      .classList.add("active");
 
     loadTelegramProfile();
+
+  }
+
+
+  function openAdvertise() {
+
+    hideAllPages();
+
+    document
+      .getElementById("advertisePage")
+      .classList.add("active");
+
+    showCreateCampaign();
 
   }
 
@@ -512,47 +1148,74 @@
 
     hideAllPages();
 
-    document.getElementById("homePage").classList.add("active");
+    document
+      .getElementById("homePage")
+      .classList.add("active");
 
   }
 
+
+  /* ==========================================
+     TELEGRAM PROFILE
+     ========================================== */
 
   function loadTelegramProfile() {
 
     const user = tg.initDataUnsafe.user;
 
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
-    let name = user.first_name || "Telegram User";
+
+    let name =
+      user.first_name || "Telegram User";
+
 
     if (user.last_name) {
+
       name += " " + user.last_name;
+
     }
 
-    document.getElementById("profileName").textContent = name;
+
+    document
+      .getElementById("profileName")
+      .textContent = name;
+
 
     if (user.username) {
 
-      document.getElementById("profileUsername").textContent =
+      document
+        .getElementById("profileUsername")
+        .textContent =
         "@" + user.username;
 
     } else {
 
-      document.getElementById("profileUsername").textContent =
+      document
+        .getElementById("profileUsername")
+        .textContent =
         "No username";
 
     }
 
-    const firstLetter =
-      (user.first_name || "U").charAt(0).toUpperCase();
 
-    document.getElementById("profileAvatar").textContent =
+    const firstLetter =
+      (user.first_name || "U")
+      .charAt(0)
+      .toUpperCase();
+
+
+    document
+      .getElementById("profileAvatar")
+      .textContent =
       firstLetter;
 
   }
 
+
+  /* ==========================================
+     TASK
+     ========================================== */
 
   function startTask(taskName) {
 
@@ -565,12 +1228,19 @@
 
     } else {
 
-      alert(taskName + " will be available soon.");
+      alert(
+        taskName +
+        " will be available soon."
+      );
 
     }
 
   }
 
+
+  /* ==========================================
+     WITHDRAW
+     ========================================== */
 
   function withdraw() {
 
@@ -591,6 +1261,310 @@
   }
 
 
+  /* ==========================================
+     ADVERTISER SECTIONS
+     ========================================== */
+
+  function showCreateCampaign() {
+
+    document
+      .getElementById("createCampaignSection")
+      .style.display = "block";
+
+
+    document
+      .getElementById("campaignsSection")
+      .style.display = "none";
+
+  }
+
+
+  function showCampaigns() {
+
+    document
+      .getElementById("createCampaignSection")
+      .style.display = "none";
+
+
+    document
+      .getElementById("campaignsSection")
+      .style.display = "block";
+
+  }
+
+
+  /* ==========================================
+     CALCULATE CAMPAIGN BUDGET
+     ========================================== */
+
+  function calculateBudget() {
+
+    let reward =
+      Number(
+        document
+          .getElementById("rewardPerWorker")
+          .value
+      );
+
+
+    let workers =
+      Number(
+        document
+          .getElementById("workerCount")
+          .value
+      );
+
+
+    if (!reward || reward < 0) {
+      reward = 0;
+    }
+
+
+    if (!workers || workers < 0) {
+      workers = 0;
+    }
+
+
+    const total =
+      reward * workers;
+
+
+    document
+      .getElementById("budgetReward")
+      .textContent =
+      reward;
+
+
+    document
+      .getElementById("budgetWorkers")
+      .textContent =
+      workers;
+
+
+    document
+      .getElementById("totalBudget")
+      .textContent =
+      total + " Credits";
+
+  }
+
+
+  /* ==========================================
+     CREATE CAMPAIGN
+     ========================================== */
+
+  function createCampaign() {
+
+    const campaignName =
+      document
+        .getElementById("campaignName")
+        .value
+        .trim();
+
+
+    const videoUrl =
+      document
+        .getElementById("videoUrl")
+        .value
+        .trim();
+
+
+    const platform =
+      document
+        .getElementById("platform")
+        .value;
+
+
+    const reward =
+      Number(
+        document
+          .getElementById("rewardPerWorker")
+          .value
+      );
+
+
+    const workers =
+      Number(
+        document
+          .getElementById("workerCount")
+          .value
+      );
+
+
+    /* Basic validation */
+
+    if (!campaignName) {
+
+      showMessage(
+        "Please enter a campaign name."
+      );
+
+      return;
+
+    }
+
+
+    if (!videoUrl) {
+
+      showMessage(
+        "Please enter your video or content URL."
+      );
+
+      return;
+
+    }
+
+
+    if (!platform) {
+
+      showMessage(
+        "Please select a platform."
+      );
+
+      return;
+
+    }
+
+
+    if (!reward || reward < 1) {
+
+      showMessage(
+        "Please enter a valid reward per worker."
+      );
+
+      return;
+
+    }
+
+
+    if (!workers || workers < 1) {
+
+      showMessage(
+        "Please enter the number of workers."
+      );
+
+      return;
+
+    }
+
+
+    /* Collect requirements */
+
+    const requirements = [];
+
+
+    if (
+      document
+        .getElementById("reqWatch")
+        .checked
+    ) {
+
+      requirements.push("Watch");
+
+    }
+
+
+    if (
+      document
+        .getElementById("reqWatchTime")
+        .checked
+    ) {
+
+      requirements.push("Watch Time");
+
+    }
+
+
+    if (
+      document
+        .getElementById("reqCode")
+        .checked
+    ) {
+
+      requirements.push("Verification Code");
+
+    }
+
+
+    if (
+      document
+        .getElementById("reqLike")
+        .checked
+    ) {
+
+      requirements.push("Like");
+
+    }
+
+
+    if (
+      document
+        .getElementById("reqComment")
+        .checked
+    ) {
+
+      requirements.push("Comment");
+
+    }
+
+
+    if (
+      document
+        .getElementById("reqFollow")
+        .checked
+    ) {
+
+      requirements.push("Follow/Subscribe");
+
+    }
+
+
+    if (
+      document
+        .getElementById("reqShare")
+        .checked
+    ) {
+
+      requirements.push("Share");
+
+    }
+
+
+    if (requirements.length === 0) {
+
+      showMessage(
+        "Please select at least one task requirement."
+      );
+
+      return;
+
+    }
+
+
+    const totalBudget =
+      reward * workers;
+
+
+    /* Demo message */
+
+    showMessage(
+      "Campaign form completed successfully!\n\n" +
+      "Campaign: " + campaignName + "\n" +
+      "Platform: " + platform + "\n" +
+      "Workers: " + workers + "\n" +
+      "Reward: " + reward + " Credits\n" +
+      "Budget: " + totalBudget + " Credits\n\n" +
+      "This is currently a demo. " +
+      "The campaign has NOT been saved yet because the backend and database are not connected."
+    );
+
+  }
+
+
+  /* ==========================================
+     MESSAGE
+     ========================================== */
+
   function showMessage(message) {
 
     if (tg.showAlert) {
@@ -604,6 +1578,13 @@
     }
 
   }
+
+
+  /* ==========================================
+     INITIAL BUDGET
+     ========================================== */
+
+  calculateBudget();
 
 </script>
 
