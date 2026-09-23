@@ -1804,33 +1804,107 @@
      BUY CREDITS
      ========================================== */
 
-  function buyCredits(
-    packageName,
-    credits,
-    price
-  ) {
+ async function buyCredits(packageName, credits, price) {
+
+  try {
+
+    if (!window.Telegram || !Telegram.WebApp) {
+      alert("Please open TastTestEarn from Telegram.");
+      return;
+    }
+
+    const tg = Telegram.WebApp;
+
+    const packageMap = {
+      "Starter": "starter",
+      "Basic": "basic",
+      "Standard": "standard",
+      "Business": "business"
+    };
+
+    const packageId = packageMap[packageName];
+
+    if (!packageId) {
+      showMessage("Invalid credit package.");
+      return;
+    }
+
+    if (!tg.initData) {
+      showMessage(
+        "Telegram authentication data is missing. Please reopen TastTestEarn from Telegram."
+      );
+      return;
+    }
+
+    const response = await fetch("/api/create-invoice", {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        packageId: packageId,
+        initData: tg.initData
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      showMessage(
+        data.message ||
+        "Could not create the payment invoice."
+      );
+      return;
+    }
+
+    tg.openInvoice(
+      data.invoiceUrl,
+      function(status) {
+
+        if (status === "paid") {
+
+          showMessage(
+            "Payment completed successfully!\n\n" +
+            "Your payment has been received. " +
+            "Credits will be added after server verification."
+          );
+
+        } else if (status === "pending") {
+
+          showMessage(
+            "Payment is still pending."
+          );
+
+        } else if (status === "cancelled") {
+
+          showMessage(
+            "Payment was cancelled."
+          );
+
+        } else if (status === "failed") {
+
+          showMessage(
+            "Payment failed. Please try again."
+          );
+
+        }
+
+      }
+    );
+
+  } catch (error) {
+
+    console.error("Payment error:", error);
 
     showMessage(
-
-      "Selected Package\n\n" +
-
-      packageName + "\n" +
-
-      credits +
-      " Credits\n" +
-
-      "Price: " +
-      price +
-      "\n\n" +
-
-      "The payment system is not connected yet.\n\n" +
-
-      "No money will be charged and no credits will be added at this stage."
-
+      "Something went wrong while starting the payment."
     );
 
   }
 
+}
 
   /* ==========================================
      MESSAGE
