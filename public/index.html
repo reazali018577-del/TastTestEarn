@@ -130,7 +130,8 @@
 
     .start-button,
     .withdraw-button,
-    .primary-button {
+    .primary-button,
+    .buy-button {
       width: 100%;
       border: none;
       border-radius: 12px;
@@ -139,6 +140,10 @@
       color: white;
       font-size: 15px;
       cursor: pointer;
+    }
+
+    .buy-button {
+      background: #16a085;
     }
 
     .withdraw-button {
@@ -223,7 +228,9 @@
       padding: 20px 0;
     }
 
-    /* ADVERTISER */
+    /* =========================
+       ADVERTISER
+       ========================= */
 
     .credit-box {
       background: #229ed9;
@@ -348,6 +355,50 @@
       text-align: center;
       color: #888;
       padding: 25px 10px;
+    }
+
+    /* =========================
+       CREDIT PACKAGES
+       ========================= */
+
+    .package-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+      background: #fafafa;
+    }
+
+    .package-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .package-name {
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .package-credits {
+      font-size: 22px;
+      font-weight: bold;
+      margin: 5px 0;
+    }
+
+    .package-price {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .payment-note {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 15px;
     }
 
     .footer {
@@ -714,10 +765,17 @@
         My Campaigns
       </button>
 
+      <button onclick="showBuyCredits()">
+        💳<br>
+        Buy Credits
+      </button>
+
     </div>
 
 
-    <!-- CREATE CAMPAIGN -->
+    <!-- ====================
+         CREATE CAMPAIGN
+         ==================== -->
 
     <div
       id="createCampaignSection"
@@ -730,14 +788,12 @@
 
       <div class="info-box">
 
-        This is the first advertiser prototype.
+        This is the advertiser prototype.
         Campaigns are not saved to the database yet.
         The backend and payment system will be connected later.
 
       </div>
 
-
-      <!-- CAMPAIGN NAME -->
 
       <div class="form-group">
 
@@ -753,8 +809,6 @@
       </div>
 
 
-      <!-- VIDEO URL -->
-
       <div class="form-group">
 
         <label for="videoUrl">
@@ -768,8 +822,6 @@
 
       </div>
 
-
-      <!-- PLATFORM -->
 
       <div class="form-group">
 
@@ -799,8 +851,6 @@
 
       </div>
 
-
-      <!-- REQUIREMENTS -->
 
       <div class="form-group">
 
@@ -900,8 +950,6 @@
       </div>
 
 
-      <!-- WATCH TIME -->
-
       <div class="form-group">
 
         <label for="watchTime">
@@ -917,8 +965,6 @@
       </div>
 
 
-      <!-- VERIFICATION CODE -->
-
       <div class="form-group">
 
         <label for="verificationCode">
@@ -933,8 +979,6 @@
 
       </div>
 
-
-      <!-- REWARD -->
 
       <div class="form-group">
 
@@ -952,8 +996,6 @@
       </div>
 
 
-      <!-- WORKERS -->
-
       <div class="form-group">
 
         <label for="workerCount">
@@ -969,8 +1011,6 @@
 
       </div>
 
-
-      <!-- BUDGET -->
 
       <div class="budget-box">
 
@@ -1026,7 +1066,9 @@
     </div>
 
 
-    <!-- MY CAMPAIGNS -->
+    <!-- ====================
+         MY CAMPAIGNS
+         ==================== -->
 
     <div
       id="campaignsSection"
@@ -1044,6 +1086,167 @@
         <br><br>
 
         Create your first campaign to see it here.
+
+      </div>
+
+    </div>
+
+
+    <!-- ====================
+         BUY CREDITS
+         ==================== -->
+
+    <div
+      id="buyCreditsSection"
+      class="advertiser-card"
+      style="display:none;">
+
+      <div class="form-title">
+        💳 Buy Advertising Credits
+      </div>
+
+
+      <div class="info-box">
+
+        Choose an advertising credit package.
+        Real payment processing will be connected in the next stage.
+
+      </div>
+
+
+      <!-- STARTER -->
+
+      <div class="package-card">
+
+        <div class="package-top">
+
+          <div class="package-name">
+            Starter
+          </div>
+
+        </div>
+
+        <div class="package-credits">
+          100 Credits
+        </div>
+
+        <div class="package-price">
+          Price: $1
+        </div>
+
+        <button
+          class="buy-button"
+          onclick="buyCredits('Starter', 100, '$1')">
+
+          💳 Buy 100 Credits
+
+        </button>
+
+      </div>
+
+
+      <!-- BASIC -->
+
+      <div class="package-card">
+
+        <div class="package-top">
+
+          <div class="package-name">
+            Basic
+          </div>
+
+        </div>
+
+        <div class="package-credits">
+          550 Credits
+        </div>
+
+        <div class="package-price">
+          Price: $5
+        </div>
+
+        <button
+          class="buy-button"
+          onclick="buyCredits('Basic', 550, '$5')">
+
+          💳 Buy 550 Credits
+
+        </button>
+
+      </div>
+
+
+      <!-- STANDARD -->
+
+      <div class="package-card">
+
+        <div class="package-top">
+
+          <div class="package-name">
+            Standard
+          </div>
+
+        </div>
+
+        <div class="package-credits">
+          1,200 Credits
+        </div>
+
+        <div class="package-price">
+          Price: $10
+        </div>
+
+        <button
+          class="buy-button"
+          onclick="buyCredits('Standard', 1200, '$10')">
+
+          💳 Buy 1,200 Credits
+
+        </button>
+
+      </div>
+
+
+      <!-- BUSINESS -->
+
+      <div class="package-card">
+
+        <div class="package-top">
+
+          <div class="package-name">
+            Business
+          </div>
+
+        </div>
+
+        <div class="package-credits">
+          3,250 Credits
+        </div>
+
+        <div class="package-price">
+          Price: $25
+        </div>
+
+        <button
+          class="buy-button"
+          onclick="buyCredits('Business', 3250, '$25')">
+
+          💳 Buy 3,250 Credits
+
+        </button>
+
+      </div>
+
+
+      <div class="payment-note">
+
+        🔒 Your credits will only be added after a
+        successful payment is confirmed by the server.
+
+        <br><br>
+
+        Payment methods will be added when the
+        payment system is connected.
 
       </div>
 
@@ -1265,29 +1468,51 @@
      ADVERTISER SECTIONS
      ========================================== */
 
-  function showCreateCampaign() {
+  function hideAdvertiserSections() {
 
     document
       .getElementById("createCampaignSection")
-      .style.display = "block";
-
+      .style.display = "none";
 
     document
       .getElementById("campaignsSection")
       .style.display = "none";
+
+    document
+      .getElementById("buyCreditsSection")
+      .style.display = "none";
+
+  }
+
+
+  function showCreateCampaign() {
+
+    hideAdvertiserSections();
+
+    document
+      .getElementById("createCampaignSection")
+      .style.display = "block";
 
   }
 
 
   function showCampaigns() {
 
-    document
-      .getElementById("createCampaignSection")
-      .style.display = "none";
-
+    hideAdvertiserSections();
 
     document
       .getElementById("campaignsSection")
+      .style.display = "block";
+
+  }
+
+
+  function showBuyCredits() {
+
+    hideAdvertiserSections();
+
+    document
+      .getElementById("buyCreditsSection")
       .style.display = "block";
 
   }
@@ -1316,12 +1541,16 @@
 
 
     if (!reward || reward < 0) {
+
       reward = 0;
+
     }
 
 
     if (!workers || workers < 0) {
+
       workers = 0;
+
     }
 
 
@@ -1391,8 +1620,6 @@
       );
 
 
-    /* Basic validation */
-
     if (!campaignName) {
 
       showMessage(
@@ -1447,8 +1674,6 @@
 
     }
 
-
-    /* Collect requirements */
 
     const requirements = [];
 
@@ -1545,17 +1770,63 @@
       reward * workers;
 
 
-    /* Demo message */
+    showMessage(
+
+      "Campaign form completed successfully!\n\n" +
+
+      "Campaign: " +
+      campaignName + "\n" +
+
+      "Platform: " +
+      platform + "\n" +
+
+      "Workers: " +
+      workers + "\n" +
+
+      "Reward: " +
+      reward +
+      " Credits\n" +
+
+      "Budget: " +
+      totalBudget +
+      " Credits\n\n" +
+
+      "This is currently a demo. " +
+
+      "The campaign has NOT been saved yet because the backend and database are not connected."
+
+    );
+
+  }
+
+
+  /* ==========================================
+     BUY CREDITS
+     ========================================== */
+
+  function buyCredits(
+    packageName,
+    credits,
+    price
+  ) {
 
     showMessage(
-      "Campaign form completed successfully!\n\n" +
-      "Campaign: " + campaignName + "\n" +
-      "Platform: " + platform + "\n" +
-      "Workers: " + workers + "\n" +
-      "Reward: " + reward + " Credits\n" +
-      "Budget: " + totalBudget + " Credits\n\n" +
-      "This is currently a demo. " +
-      "The campaign has NOT been saved yet because the backend and database are not connected."
+
+      "Selected Package\n\n" +
+
+      packageName + "\n" +
+
+      credits +
+      " Credits\n" +
+
+      "Price: " +
+      price +
+      "\n\n" +
+
+      "The payment system is not connected yet.\n\n" +
+
+      "No money will be charged and no credits will be added at this stage."
+
     );
 
   }
