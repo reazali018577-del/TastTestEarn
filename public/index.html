@@ -744,10 +744,9 @@
         Advertising Credits
       </div>
 
-      <div class="credit-box-amount">
-        0 Credits
-      </div>
-
+    <div class="credit-box-amount" id="advertiserCredits">
+  Loading...
+</div>
     </div>
 
 
@@ -1334,17 +1333,85 @@
   }
 
 
-  function openAdvertise() {
+ function openAdvertise() {
 
-    hideAllPages();
+  hideAllPages();
 
-    document
-      .getElementById("advertisePage")
-      .classList.add("active");
+  document
+    .getElementById("advertisePage")
+    .classList.add("active");
 
-    showCreateCampaign();
+  showCreateCampaign();
+
+  loadAdvertiserWallet();
+
+}
 
   }
+
+  async function loadAdvertiserWallet() {
+
+  try {
+
+    if (!tg.initData) {
+
+      document
+        .getElementById("advertiserCredits")
+        .textContent = "0 Credits";
+
+      return;
+    }
+
+
+    const response = await fetch("/api/wallet", {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        initData: tg.initData
+      })
+
+    });
+
+
+    const data = await response.json();
+
+
+    if (!response.ok || !data.success) {
+
+      throw new Error(
+        data.message || "Unable to load wallet."
+      );
+
+    }
+
+
+    document
+      .getElementById("advertiserCredits")
+      .textContent =
+      `${Number(data.credits || 0).toLocaleString()} Credits`;
+
+
+  } catch (error) {
+
+    console.error(
+      "Wallet loading error:",
+      error
+    );
+
+
+    document
+      .getElementById("advertiserCredits")
+      .textContent =
+      "0 Credits";
+
+  }
+
+}
 
 
   function goHome() {
