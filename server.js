@@ -174,6 +174,76 @@ app.get("/api/status", async (req, res) => {
 });
 
 /*
+  Get the logged-in advertiser's credit balance.
+*/
+app.post("/api/wallet", async (req, res) => {
+  try {
+    const { initData } = req.body;
+
+    if (!initData) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing Telegram authentication data."
+      });
+    }
+
+    const telegramUser = validateTelegramInitData(initData);
+
+    if (!telegramUser || !telegramUser.id) {
+      return res.status(401).json({
+        success: false,
+        message: "Telegram authentication could not be verified."
+      });
+    }
+
+    /*
+      Create advertiser account if it does not exist.
+    */
+    await pool.query(
+      `
+      INSERT INTO advertisers
+      (
+        telegram_user_id,
+        credits
+      )
+      VALUES ($1, 0)
+      ON CONFLICT (telegram_user_id)
+      DO NOTHING
+      `,
+      [telegramUser.id]
+    );
+
+    /*
+      Get current credit balance.
+    */
+    const result = await pool.query(
+      `
+      SELECT credits
+      FROM advertisers
+      WHERE telegram_user_id = $1
+      `,
+      [telegramUser.id]
+    );
+
+    const credits = result.rows[0]
+      ? result.rows[0].credits
+      : 0;
+
+    res.json({
+      success: true,
+      credits
+    });
+
+  } catch (error) {
+    console.error("Wallet error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Unable to load wallet."
+    });
+  }
+});
+/*
   Create a Telegram Stars invoice.
 */
 app.post("/api/create-invoice", async (req, res) => {
